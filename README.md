@@ -31,6 +31,7 @@ The squared target is also rewritten into a cleaner factorized form with a prefa
 ![Feynman diagram, amplitude, and squared amplitude](images/feynman_diagram_amp_sq.png)
 
 ![Factorized target vs raw target](images/factorization_image.png)
+While simple 2-to-2 processes reduce to a single term, the factorized grammar naturally extends to a generalized sum of interference blocks, $$\sum_{k} \left( C_k \cdot \frac{N_k}{D_k} \right)$$. By defining recursive grammar rules, the decoder can dynamically scale to predict the multi-term outputs required for higher-multiplicity processes without losing its strict physical constraints. <br>
 
 Useful Task 1 numbers:
 
@@ -96,7 +97,7 @@ For the amplitude side, the models use physics-tagged structured source sequence
 ![QCD and QED amp2sq architecture](images/qcd_qed_amp2sq_arch.png)
 
 The main evaluation summaries are shown below.
-
+The factorized target makes it more direct for the model to learn the actual physics, rather than forcing it to memorize a complex mapping across multiple redundant, unsimplified raw forms. Furthermore, our custom physics-informed encoders consistently outperform the seq2seq baseline across all tasks, even when predicting raw, unsimplified strings.
 ### Sequence Accuracy
 
 ![Sequence accuracy summary](images/ablation_study_all.png)
