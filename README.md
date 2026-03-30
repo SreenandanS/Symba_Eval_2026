@@ -9,7 +9,7 @@ This repository contains my evaluation work for the ML4SCI SYMBA project. The wo
 - **Common Task 1.2: Dataset preprocessing**
 - **Specific Task 2.1: Train / Evaluate advanced model**
 
-The generated `outputs/` directory is too large. 
+The `outputs' are too large. 
 Experiment outputs, summaries, and other large artifacts are available on Google Drive:
 
 - [SYMBA evaluation outputs](https://drive.google.com/drive/folders/1BUmaO2sva8YHfezcYzSHoBdY3oQPRGaa?usp=share_link)
