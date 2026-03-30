@@ -2,6 +2,10 @@
 
 Three-stream symmetry-aware equivariant GNN for predicting squared amplitudes from QCD tree-level 2->2 Feynman diagrams.
 
+Large generated run artifacts are not bundled in this repository. Exported outputs and summaries are available on Google Drive:
+
+- [SYMBA evaluation outputs](https://drive.google.com/drive/folders/1BUmaO2sva8YHfezcYzSHoBdY3oQPRGaa?usp=share_link)
+
 ## Architecture Snapshot
 
 ![QCD fd2sq architecture](../../images/qcd_fd2sq_architecture.png)

@@ -2,6 +2,10 @@
 
 This part focuses on training and evaluating advanced models on top of the representations prepared in Common Task 1.2.
 
+The generated `outputs/` directory is too large. Experiment outputs, summaries, and other large artifacts are available on Google Drive:
+
+- [SYMBA evaluation outputs](https://drive.google.com/drive/folders/1BUmaO2sva8YHfezcYzSHoBdY3oQPRGaa?usp=share_link)
+
 ## The Four Main Models
 
 - `custom_qcd_fd2sq`: three-stream graph encoder for QCD diagrams
@@ -64,18 +68,10 @@ A Transformer encoder reads this full tagged sequence, and pooled views of the d
 
 ## Detailed Output Notes
 
-The summarized notes now live in the top-level `outputs/` folder.
+The summarized notes live in the top-level `outputs/` folder in the full project workspace. In this shared repository copy, those large output artifacts are provided through the Google Drive folder above.
 
 Note: in the saved QCD `amp2sq` notebook outputs and summary files, the current `custom` encoder still appears under the older legacy label `gnn` / `pi_gnn_amp2sq`; this is a naming carry-over, not a different architecture.
 
-- [QCD fd2sq observation summary](../outputs/qcd-fd2sq-output/observation_summary.md)
-- [QCD fd2sq ablation summary](../outputs/qcd-fd2sq-output/ablation_summary_all.md)
-- [QCD amp2sq observation summary](../outputs/qcd-amp2sq-output/observation_summary.md)
-- [QCD amp2sq ablation summary](../outputs/qcd-amp2sq-output/ablation_summary_all.md)
-- [QED fd2sq observation summary](../outputs/qed-fd2sq-output/observation_summary.md)
-- [QED fd2sq ablation summary](../outputs/qed-fd2sq-output/ablation_summary_all.md)
-- [QED amp2sq observation summary](../outputs/qed-amp2sq-output/observation_summary.md)
-- [QED amp2sq ablation summary](../outputs/qed-amp2sq-output/ablation_summary_all.md)
 
 ## Thank you!
 Please mail me at sreenandan.shashidharan@gmail.com or at 24JE0701@iitism.ac.in if anything is amiss. I sincerely apologise in advance. 

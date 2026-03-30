@@ -9,6 +9,11 @@ This repository contains my evaluation work for the ML4SCI SYMBA project. The wo
 - **Common Task 1.2: Dataset preprocessing**
 - **Specific Task 2.1: Train / Evaluate advanced model**
 
+The generated `outputs/` directory is too large. 
+Experiment outputs, summaries, and other large artifacts are available on Google Drive:
+
+- [SYMBA evaluation outputs](https://drive.google.com/drive/folders/1BUmaO2sva8YHfezcYzSHoBdY3oQPRGaa?usp=share_link)
+
 ## Common Task 1.2: Dataset Preprocessing
 
 The first part of the work is to make the symbolic dataset usable for learning. Each SYMBA line is split into interaction text, topology text, raw amplitude, and raw squared amplitude. From there, the source is normalized with bounded local placeholders so that sample-specific labels become reusable tokens instead of exploding the vocabulary.
@@ -112,11 +117,6 @@ More detail: [Specific Task 2.1/README.md](Specific%20Task%202.1/README.md)
 .
 ├── dataset/                         tree-level QCD and QED SYMBA text files
 ├── images/                          figures used in the evaluation write-up
-├── outputs/                         centralized experiment summaries and result 
-│   ├── qcd-fd2sq-output/
-│   ├── qcd-amp2sq-output/
-│   ├── qed-fd2sq-output/
-│   └── qed-amp2sq-output/
 ├── Common Task 1.2/                 dataset preprocessing materials
 │   ├── tokenization-eda-2.ipynb
 │   └── README.md

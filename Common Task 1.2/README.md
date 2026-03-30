@@ -2,6 +2,10 @@
 
 This part focuses on preparing the symbolic dataset so the later models have a cleaner and more learnable representation.
 
+Large generated artifacts are not bundled in this repository copy. Related exported outputs are available on Google Drive:
+
+- [SYMBA evaluation outputs](https://drive.google.com/drive/folders/1BUmaO2sva8YHfezcYzSHoBdY3oQPRGaa?usp=share_link)
+
 ## What Happens Here
 
 - each SYMBA line is split into interaction text, topology text, raw amplitude, and raw squared amplitude

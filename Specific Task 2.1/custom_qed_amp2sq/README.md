@@ -2,6 +2,10 @@
 
 Physics-tagged structured sequence encoder for predicting squared amplitudes from QED tree-level 2->2 amplitudes.
 
+Large generated run artifacts are not bundled in this repository. Exported outputs and summaries are available on Google Drive:
+
+- [SYMBA evaluation outputs](https://drive.google.com/drive/folders/1BUmaO2sva8YHfezcYzSHoBdY3oQPRGaa?usp=share_link)
+
 ## Architecture Snapshot
 
 ![QCD and QED amp2sq architecture](../../images/qcd_qed_amp2sq_arch.png)
