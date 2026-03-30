@@ -1,4 +1,4 @@
-# GSoC ML4SCI SYMBA Evaluation Tasks
+# GSoC ML4SCI SYMBA Evaluation Tasks 2026
 
 ## Project
 
@@ -9,16 +9,16 @@ This repository contains my evaluation work for the ML4SCI SYMBA project. The wo
 - **Common Task 1.2: Dataset preprocessing**
 - **Specific Task 2.1: Train / Evaluate advanced model**
 
-The `outputs' are too large. 
-Experiment outputs, summaries, and other large artifacts are available on Google Drive:
+The 'outputs' folder was too large. 
+Model weights, summaries, and loss/accuracy curves are available on Google Drive:
 
 - [SYMBA evaluation outputs](https://drive.google.com/drive/folders/1BUmaO2sva8YHfezcYzSHoBdY3oQPRGaa?usp=share_link)
 
-  Every model was trained on NVIDIA H100. 
+  Every model was trained on NVIDIA H100 via Kaggle. All the ipynb files can be run end-to-end, but please modify the datatset path for it. 
 
 ## Common Task 1.2: Dataset Preprocessing
 
-The first part of the work is to make the symbolic dataset usable for learning. Each SYMBA line is split into interaction text, topology text, raw amplitude, and raw squared amplitude. From there, the source is normalized with bounded local placeholders so that sample-specific labels become reusable tokens instead of exploding the vocabulary.
+The first part of the work is to make the symbolic dataset usable for learning. Each SYMBA line is split into interaction text, diagram text, raw amplitude, and raw squared amplitude. From there, the source is normalized with bounded local placeholders so that sample-specific labels become reusable tokens instead of exploding the vocabulary.
 
 Examples:
 
@@ -67,8 +67,6 @@ For QCD diagram to squared-amplitude prediction, the encoder treats each tree-le
 - a spinor / fermion-line stream for fermion number, line identity, and interaction type
 
 After each layer, the streams exchange information through cross-stream exchange, and the final node states are fused into a unified graph memory. The model then builds global color, denominator, and spinor context tokens before decoding.
-
-For the diagram side, the models use structured encoders matched to the interaction:
 
 ![QCD fd2sq architecture](images/qcd_fd2sq_architecture.png)
 
@@ -133,5 +131,12 @@ More detail: [Specific Task 2.1/README.md](Specific%20Task%202.1/README.md)
 │   ├── qed-amptosq.ipynb
 │   └── README.md
 ```
+
+Clone the repo:
+```bash
+git clone https://github.com/SreenandanS/Symba_Eval_2026
+```
 ## Thank you!
 Please mail me at sreenandan.shashidharan@gmail.com or at 24JE0701@iitism.ac.in if anything is amiss. I sincerely apologise in advance. 
+
+
