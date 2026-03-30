@@ -14,6 +14,8 @@ Experiment outputs, summaries, and other large artifacts are available on Google
 
 - [SYMBA evaluation outputs](https://drive.google.com/drive/folders/1BUmaO2sva8YHfezcYzSHoBdY3oQPRGaa?usp=share_link)
 
+  Every model was trained on NVIDIA H100. 
+
 ## Common Task 1.2: Dataset Preprocessing
 
 The first part of the work is to make the symbolic dataset usable for learning. Each SYMBA line is split into interaction text, topology text, raw amplitude, and raw squared amplitude. From there, the source is normalized with bounded local placeholders so that sample-specific labels become reusable tokens instead of exploding the vocabulary.
