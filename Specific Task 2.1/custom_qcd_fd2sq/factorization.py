@@ -1,0 +1,156 @@
+"""
+Canonical factorization of SYMBA QCD squared amplitudes.
+
+Each tree-level 2->2 single-diagram target is audited in two forms:
+
+    factorized -> color_factor * numerator / denominator
+    raw_string -> original raw SYMBA string
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+import sympy as sp
+
+
+TARGET_VARIANT_FACTORIZED = "factorized"
+TARGET_VARIANT_RAW_STRING = "raw_string"
+
+SUPPORTED_TARGET_VARIANTS: tuple[str, ...] = (
+    TARGET_VARIANT_FACTORIZED,
+    TARGET_VARIANT_RAW_STRING,
+)
+
+_MASS_SYMBOLS = {
+    name: sp.symbols(name)
+    for name in ("m_u", "m_d", "m_s", "m_c", "m_b", "m_t")
+}
+_MANDELSTAM_SYMBOLS = {
+    name: sp.symbols(name)
+    for name in ("s_12", "s_13", "s_14", "s_23", "s_24", "s_34")
+}
+_G = sp.symbols("g")
+_REG_PROP = sp.symbols("reg_prop")
+
+SYMPY_LOCALS = {
+    "g": _G,
+    "i": sp.I,
+    "reg_prop": _REG_PROP,
+    **_MASS_SYMBOLS,
+    **_MANDELSTAM_SYMBOLS,
+}
+
+_NUMERATOR_SYMBOL_ORDER = tuple(
+    _MASS_SYMBOLS[name]
+    for name in ("m_b", "m_c", "m_d", "m_s", "m_t", "m_u")
+) + tuple(
+    _MANDELSTAM_SYMBOLS[name]
+    for name in ("s_12", "s_13", "s_14", "s_23", "s_24", "s_34")
+) + (_REG_PROP,)
+
+
+def normalize_target_variant(target_variant: str) -> str:
+    if target_variant not in SUPPORTED_TARGET_VARIANTS:
+        raise ValueError(
+            f"Unknown target_variant '{target_variant}'. Expected one of "
+            f"{SUPPORTED_TARGET_VARIANTS}."
+        )
+    return target_variant
+
+
+def default_decoder_representation(target_variant: str) -> str:
+    return "postfix"
+
+
+def default_use_grammar(target_variant: str) -> bool:
+    normalize_target_variant(target_variant)
+    return True
+
+
+@dataclass(frozen=True)
+class FactorizedTarget:
+    color_factor: str
+    denominator: str
+    numerator_infix: str
+    full_infix: str
+    raw_string: str
+    target_variant: str = TARGET_VARIANT_FACTORIZED
+
+    def sequence_target_text(self) -> str:
+        variant = normalize_target_variant(self.target_variant)
+        if variant == TARGET_VARIANT_FACTORIZED:
+            return self.full_infix
+        return self.raw_string
+
+    def sequence_target_infix(self) -> str:
+        return self.sequence_target_text()
+
+
+def _canonical_expr_string(expr: sp.Expr) -> str:
+    return sp.sstr(expr, order="lex")
+
+
+def _canonicalize_numerator(expr: sp.Expr) -> sp.Expr:
+    expanded = sp.expand(expr)
+    try:
+        poly = sp.Poly(expanded, *_NUMERATOR_SYMBOL_ORDER, domain="ZZ")
+    except Exception as exc:  # pragma: no cover - defensive scope guard
+        raise ValueError(
+            "Canonical numerator left the audited polynomial scope."
+        ) from exc
+    return sp.expand(poly.as_expr())
+
+
+def reconstruct_full_infix(
+    color_factor: str,
+    denominator: str,
+    numerator_infix: str,
+) -> str:
+    denominator_infix = denominator.replace("**", "^")
+    color_factor_infix = color_factor.replace("**", "^")
+    return f"({color_factor_infix})*(({numerator_infix})/({denominator_infix}))"
+
+
+def factorize_squared_amplitude(
+    raw_squared: str,
+    target_variant: str = TARGET_VARIANT_FACTORIZED,
+) -> FactorizedTarget:
+    normalized_variant = normalize_target_variant(target_variant)
+    raw_string = raw_squared.replace("**", "^").strip()
+
+    expr = sp.sympify(raw_string.replace("^", "**"), locals=SYMPY_LOCALS)
+    expr = sp.cancel(expr)
+
+    numerator, denominator = sp.fraction(expr)
+    denominator = sp.factor(denominator)
+    den_const, denominator = denominator.as_coeff_Mul()
+
+    numerator = sp.simplify(sp.collect(numerator, _G**4) / (_G**4))
+    num_const, numerator = numerator.as_content_primitive()
+    color_factor = sp.simplify(num_const / den_const)
+
+    if color_factor.could_extract_minus_sign():
+        color_factor = -color_factor
+        numerator = -numerator
+
+    color_factor = sp.nsimplify(color_factor)
+    denominator = sp.factor(denominator)
+    simplified_numerator = sp.simplify(numerator)
+    factorized_numerator = _canonicalize_numerator(simplified_numerator)
+
+    color_factor_str = _canonical_expr_string(color_factor)
+    denominator_str = _canonical_expr_string(denominator)
+    numerator_infix = _canonical_expr_string(factorized_numerator).replace("**", "^")
+    return FactorizedTarget(
+        color_factor=color_factor_str,
+        denominator=denominator_str,
+        numerator_infix=numerator_infix,
+        full_infix=reconstruct_full_infix(
+            color_factor=color_factor_str,
+            denominator=denominator_str,
+            numerator_infix=numerator_infix,
+        ),
+        raw_string=raw_string,
+        target_variant=normalized_variant,
+    )
