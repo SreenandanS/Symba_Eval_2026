@@ -13,6 +13,8 @@ The generated `outputs/` directory is too large. Experiment outputs, summaries, 
 - `custom_qcd_amp2sq`: physics-tagged sequence encoder for QCD amplitudes
 - `custom_qed_amp2sq`: physics-tagged sequence encoder for QED amplitudes
 
+  The 4 notebooks (.ipynb) files can be run end to end after changing the dataset path. The notebooks include observations, training logs and metrics. 
+
 All four models share the same target-side setup. I train them against either the raw squared-amplitude string or a factorized symbolic target, and the decoder generates postfix sequences under grammar constraints. This keeps the decoder stack comparable while letting the encoder design carry most of the physics-specific inductive bias.
 
 ## Architecture Snapshots
